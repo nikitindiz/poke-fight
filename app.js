@@ -1,5 +1,6 @@
 var path = require('path');
 var express = require('express');
+const cors = require('cors');
 
 var createError = require('http-errors');
 var cookieParser = require('cookie-parser');
@@ -19,6 +20,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(cors());
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
