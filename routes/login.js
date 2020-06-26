@@ -1,4 +1,6 @@
 const express = require('express');
+const md5 = require('md5');
+
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -8,7 +10,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const dbValues = {
         username: 'admin',
-        password: '12345'
+        password_hash: 'b9f8804c5c4cc5845c1fb1cbc24feb3e'
     };
 
     const detailedInfoAboutUser = {
@@ -17,11 +19,11 @@ router.post('/', (req, res) => {
         secretToken: 'Secret!!!!!'
     };
 
-    console.log(req.body)
-    // console.log(req.body.username)
+    const salt = 'SOME_SECRET_HERE';
+    const receivedHashedPassword = md5(req.body.password + salt);
 
     if (
-        dbValues.password === req.body.password &&
+        dbValues.password_hash === receivedHashedPassword &&
         dbValues.username === req.body.username
     ) {
         res.send(detailedInfoAboutUser);
