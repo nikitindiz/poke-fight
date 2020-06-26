@@ -6,6 +6,6 @@ const md5 = require('md5');
 
 const passwordToHash = process.argv[2];
 
-const salt = 'SOME_SECRET_HERE';
+const salt = process.argv[3] || 'SOME_SECRET_HERE';
 
 console.log( md5(passwordToHash + salt) );
