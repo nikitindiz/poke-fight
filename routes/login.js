@@ -38,14 +38,17 @@ router.post('/', (req, res) => {
                 lastName: userFromDb.last_name,
             };
 
+            const signToken = (payload, secret) => {
+                const buff = new Buffer(payload);
+                const base64Payload = buff.toString('base64'); // First part of the token
+                const signature = md5(base64Payload + secret); // Second part of the token
+
+                return `${base64Payload}.${signature}`
+            }
+
             const secretForToken = 'SECRET_FOR_TOKEN';
 
             const tokenPayloadAsString = JSON.stringify(tokenPayload);
-            const buff = new Buffer(tokenPayloadAsString);
-            const base64Payload = buff.toString('base64'); // First part of the token
-            const signature = md5(base64Payload + secretForToken); // Second part of the token
-
-            const detailedInfoAboutUser = `${base64Payload}.${signature}`;
 
             // Building hash for received from request password
             const salt = 'SOME_SECRET_HERE';
@@ -54,7 +57,7 @@ router.post('/', (req, res) => {
             const passwordsHashesMatch = userFromDb.password_hash === receivedHashedPassword;
 
             if (passwordsHashesMatch) {
-                res.send({ error: null, token: detailedInfoAboutUser });
+                res.send({ error: null, token: signToken(tokenPayloadAsString, secretForToken) });
             } else {
                 res.send({ error: 'Failed' });
             }
