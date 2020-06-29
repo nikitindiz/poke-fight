@@ -1,18 +1,6 @@
 const express = require('express');
-const { Pool } = require('pg');
 const md5 = require('md5');
-
-// 	postgres://rdvnbpfq:Rg_vbAeEbvkpiFnl_QsAMXzwYxa4qvvA@ruby.db.elephantsql.com:5432/rdvnbpfq
-const pool = new Pool({
-    user: 'rdvnbpfq',
-    host: 'ruby.db.elephantsql.com',
-    database: 'rdvnbpfq',
-    password: 'Rg_vbAeEbvkpiFnl_QsAMXzwYxa4qvvA',
-    port: 5432,
-    // connectionString: 'postgres://rdvnbpfq:Rg_vbAeEbvkpiFnl_QsAMXzwYxa4qvvA@ruby.db.elephantsql.com:5432/rdvnbpfq',
-});
-
-pool.connect();
+const pool = require('../db-connector/pool');
 
 const router = express.Router();
 

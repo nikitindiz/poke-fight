@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pokemonRouter = require('./routes/pokemon');
 var loginRouter = require('./routes/login');
+var newsRouter = require('./routes/news');
 
 var app = express();
 
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/pokemon', pokemonRouter);
 app.use('/login', loginRouter);
+app.use('/news', newsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
