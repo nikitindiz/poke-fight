@@ -14,6 +14,6 @@ router.get('/', newsController.newsGet);
 // D - delete   DELETE
 
 // Secured route
-router.post('/', newsController.news);
+router.post('/', newsController.newsPost);
 
 module.exports = router;

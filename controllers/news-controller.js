@@ -1,21 +1,13 @@
 const md5 = require('md5');
-const pool = require('../db-connector/pool');
+const newsModel = require('../models/news-model');
 
 const newsGet = async (req, res) => {
     try {
-        const data = await pool.query('SELECT * FROM news');
+        const data = await newsModel.getAllNews();
         res.send(data.rows);
     } catch (err) {
         res.send({ error: err.message });
     }
-
-    // pool.query('SELECT * FROM news')
-    //     .then((data) => {
-    //         res.send(data.rows);
-    //     })
-    //     .catch((err) => {
-    //         res.send({ error: err.message });
-    //     });
 };
 
 const newsPost = async (req, res) => {
@@ -35,27 +27,12 @@ const newsPost = async (req, res) => {
         // is allowed to post the data
 
         try {
-            const data = await pool.query(
-                'INSERT INTO news (title, brief_text, detailed_text) VALUES ($1, $2, $3)',
-                [title, brief_text, detailed_text]
-            );
+            const data = await newsModel.createNews(title, brief_text, detailed_text);
 
             res.send(data.rows)
         } catch(err) {
             res.send({ error: err.message })
         }
-
-        // pool
-        //     .query(
-        //         'INSERT INTO news (title, brief_text, detailed_text) VALUES ($1, $2, $3)',
-        //         [title, brief_text, detailed_text]
-        //     )
-        //     .then(data => {
-        //         res.send(data.rows)
-        //     })
-        //     .catch(err => {
-        //         res.send({ error: err.message })
-        //     });
     } else {
         res.send({ error: 'Something wrong with auth' })
     }

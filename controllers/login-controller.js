@@ -1,11 +1,11 @@
 const md5 = require('md5');
-const pool = require('../db-connector/pool');
+const userModel = require('../models/user-model');
 
 const loginPost = async (req, res) => {
     const { username, password } = req.body;
 
     try {
-        const data = await pool.query(`SELECT * FROM users WHERE username=$1;`, [ username ]);
+        const data = await userModel.getUserByUsername(username);
 
         const returnedTable = data.rows; // Array of records
 
