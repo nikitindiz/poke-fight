@@ -1,4 +1,6 @@
 const md5 = require('md5');
+const jwt = require('jsonwebtoken');
+
 const userModel = require('../models/user-model');
 
 const loginPost = async (req, res) => {
@@ -32,20 +34,9 @@ const loginPost = async (req, res) => {
             };
 
             const secretForToken = 'SECRET_FOR_TOKEN';
+            const token = jwt.sign(tokenPayload, secretForToken); // issue the jwt token
 
-            const tokenPayloadAsString = JSON.stringify(tokenPayload); // Convert  payload to JSON string
-
-            // Convert string to base64 encoded string
-            const buff = new Buffer(tokenPayloadAsString); // Create new buffer object
-            const base64Payload = buff.toString('base64'); // Use buffer object to build first part of the token
-
-            // Build signature for payload
-            const signature = md5(base64Payload + secretForToken); // Second part of the token
-
-            // Combine payload and signature to one token
-            const detailedInfoAboutUser = `${base64Payload}.${signature}`;
-
-            res.send({ error: null, token: detailedInfoAboutUser });
+            res.send({ error: null, token });
         } else {
             res.send({ error: 'Failed' });
         }
