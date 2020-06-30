@@ -1,18 +1,16 @@
-var path = require('path');
-var express = require('express');
+const path = require('path');
+const express = require('express');
 const cors = require('cors');
 
-var createError = require('http-errors');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var pokemonRouter = require('./routes/pokemon');
-var loginRouter = require('./routes/login');
-var newsRouter = require('./routes/news');
+const pokemonRouter = require('./routes/pokemon');
+const loginRouter = require('./routes/login');
+const newsRouter = require('./routes/news');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,8 +25,7 @@ app.use(cors());
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 app.use('/pokemon', pokemonRouter);
 app.use('/login', loginRouter);
 app.use('/news', newsRouter);
