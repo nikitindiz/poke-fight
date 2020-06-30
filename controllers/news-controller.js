@@ -13,8 +13,6 @@ const newsGet = async (req, res) => {
 const newsPost = async (req, res) => {
     const { title, brief_text, detailed_text } = req.body;
 
-    console.log(req.user);
-
     if (req.user.username === 'admin') {
         try {
             const data = await newsModel.createNews(title, brief_text, detailed_text);
