@@ -1,6 +1,5 @@
-const md5 = require('md5');
 const newsModel = require('../models/news-model');
-
+// Read
 const newsGet = async (req, res) => {
     try {
         const data = await newsModel.getAllNews();
@@ -10,6 +9,7 @@ const newsGet = async (req, res) => {
     }
 };
 
+// Create
 const newsPost = async (req, res) => {
     const { title, brief_text, detailed_text } = req.body;
 
@@ -25,6 +25,12 @@ const newsPost = async (req, res) => {
         res.send({ err: 'You are not allowed to post data' });
     }
 };
+
+// Update
+const newsPut = async (req, res) => {}
+
+// Delete
+const newsDelete = async (req, res) => {}
 
 module.exports = {
     newsGet,

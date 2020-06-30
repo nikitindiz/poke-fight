@@ -1,6 +1,6 @@
 const pool = require('../db-connector/pool');
 
-const getAllNews = () => {
+const getAllNews = async () => {
     return pool.query('SELECT * FROM news'); // -> new Promise()
 };
 
@@ -11,7 +11,11 @@ const createNews = (title, brief_text, detailed_text) => {
     );
 };
 
+const updateNews = () => {};
+
+const deleteNews = () => {};
+
 module.exports = {
     getAllNews,
-    createNews
+    createNews,
 };

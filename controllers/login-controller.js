@@ -30,6 +30,7 @@ const loginPost = async (req, res) => {
             const tokenPayload = {
                 firstName: userFromDb.first_name,
                 lastName: userFromDb.last_name,
+                isAdmin: true,
                 username,
             };
 
